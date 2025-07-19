@@ -1,0 +1,69 @@
+# Mini Issue Tracker — React Frontend
+
+## Context
+You’re building the frontend for a mini issue‑tracker (like Jira) using React. The backend is implemented in Django + DRF with JWT auth and exposes these API endpoints:
+
+- **Auth**  
+  - `POST /api/auth/register/` → Register new user  
+  - `POST /api/auth/login/` → Obtain JWT access & refresh tokens  
+  - `POST /api/auth/token/refresh/` → Refresh access token  
+
+- **Issues**  
+  - `GET  /api/issues/`  
+  - `POST /api/issues/`  
+  - `GET  /api/issues/:id/`  
+  - `PUT  /api/issues/:id/`  
+  - `DELETE /api/issues/:id/`  
+
+- **Tags, Priorities, IssueLogs, Invitations**  
+  - Standard REST list/create/detail/update/delete under `/api/tags/`, `/api/priorities/`, `/api/issue-logs/`, `/api/invitations/`  
+
+Each protected endpoint requires the `Authorization: Bearer <access_token>` header.
+
+## Requirements
+Implement a React app that provides:
+
+1. **Authentication Flow**  
+   - Registration and login forms  
+   - Store JWT tokens in secure, http‑only cookies or session (as preferred)  
+   - Automatic token refresh on 401 responses  
+
+2. **Routing** (React Router)  
+   - `/login`  
+   - `/register`  
+   - `/issues` (list)  
+   - `/issues/new` (create)  
+   - `/issues/:id` (detail & edit)  
+
+3. **Global State**  
+   - User context with auth status and tokens  
+   - Centralized API client (Axios or fetch wrapper) that injects JWT  
+
+4. **UI Components** (using your choice of component library or plain CSS)  
+   - Header with login/logout buttons  
+   - IssueList table with columns: Title, Status, Priority, Assigned To, Created By, Actions  
+   - IssueForm for create/edit with fields: title, description (markdown editor), status dropdown, priority dropdown, tags multi‑select, assignee dropdown  
+   - IssueDetail view showing full description, logs, and ability to add comments or change status  
+   - Tag and Priority management screens (optional)  
+
+5. **Side Effects & Data Fetching**  
+   - Use React Query or Redux Toolkit Query for server state  
+   - Show loading indicators and error messages for each API call  
+
+6. **Invitation Flow**  
+   - Screen to send email invites (collect email, call `/api/invitations/`)  
+   - Indicate invite status  
+
+7. **Security & UX**  
+   - Redirect to `/login` if not authenticated  
+   - Protect routes behind auth guard  
+
+## Task
+Generate a React project scaffold that:
+
+1. Sets up React Router, global auth context/provider, and API client.  
+2. Implements the pages and components above.  
+3. Demonstrates JWT handling (login, logout, token refresh).  
+4. Fetches and displays data from the Django/DRF backend.  
+
+Use best practices, functional components, hooks, and clean folder structure (`src/components`, `src/pages`, `src/api`, `src/context`, etc.).  
